@@ -1,0 +1,65 @@
+Title
+========================================================
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring web pages (click the **Help** toolbar button for more details on using R Markdown).
+
+When you click the **Knit HTML** button a web page will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r}
+summary(cars)
+```
+
+You can also embed plots, for example:
+
+```{r fig.width=7, fig.height=6}
+plot(cars)
+```
+
+R Idioms
+
+* Tom Short's R Reference Card
+http://cran.r-project.org/doc/contrib/Short-refcard.pdf
+* avoid explicit calls to return()
+* a function consists of its arguments, body and environment 
+* function + environment = closure or function closure 
+* scoping rules determine how a value is associated with a free variable in a function
+* lexical/static scoping in R means that the values of free variables are searched for 
+in the environment in which the function was defined (vs. dynamic scoping)
+* clear workspace rm(list=ls(all=TRUE))
+* "scalars" are vectors of length 1
+* vector recycling and vectorized/element-by-element operations
+* sequences of numbers: `:`, seq(), rep()
+* atomic data types: numeric, character, logical, integer, complex
+* the most basic object is the vector; a vector can only contain objects of the same class
+* NA is a placeholder for a quantity that is not available
+* y<-rnorm(1000); (random draw from standard normal distribution)
+z<-rep(NA,1000); 
+myData<-sample(c(y,z),100); (select 100 elements at random from combining y and z)
+myNA<-is.na(myData); (myNA is a logical vector)
+* 0/0; Inf-Inf
+* index vectors come in four different flavors:
+logical vectors, vectors of positive integers, vectors of negative integers, 
+vectors of character strings
+* a vector of all NAs in x: x[is.na(x)] (is.na(x) is a logical index vector)
+* a vector of all non-NA values in x: x[!is.na(x)] 
+* x[!is.na(x) & x>0]
+* x[1:10] (1:10 is an index vector of positive integers)
+* x[c(3,5,7)] (c(3,5,7) is an index vector of positive integers)
+* x[c(-3,-5,-7)] or x[-c(3,5,7)] (c(-3,-5,-7) is an index vector of positive integers returns 
+all elements of x EXCEPT for the 3rd, 5th and 7th)
+* R uses one-based indexing 
+* named vectors: names(vect)<-c("foo","bar","norf")
+* identical()
+* vect[c("foo", "bar")] (c("foo", "bar") is an index vector of character string)
+* attributes(myVector)
+* class(myVector)
+* a matrix is simply an atomic vector with a dimension attribute; a matrix can
+only contain one class of data
+* coercion, implicit and explicit
+* data.frame() 
+* colnames(myData)<-cnames to set the colnames attribute of our data frame
+* class(monitordata) "data.frame"; class(monitordata[pollutant]) "data.frame";
+class(monitordata[,pollutant]) "numeric";
+
+
+
