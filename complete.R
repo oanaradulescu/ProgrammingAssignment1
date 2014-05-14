@@ -26,7 +26,8 @@ complete <- function(directory, id = 1:332) {
     good.df<-monitordata[good.bv,]
     cnts<-tapply(good.df[,4],as.factor(good.df[,4]),length,simplify=F)
     
-    cnts.df<-as.data.frame(cnts)
+    cnts.df<-data.frame(names(cnts),unlist(cnts))
+    colnames(cnts.df)<-c("id","nobs")
     
     cnts.df
 }
