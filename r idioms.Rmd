@@ -60,6 +60,9 @@ only contain one class of data
 * colnames(myData)<-cnames to set the colnames attribute of our data frame
 * class(monitordata) "data.frame"; class(monitordata[pollutant]) "data.frame";
 class(monitordata[,pollutant]) "numeric";
+* R variable types are called modes
+* for (i in seq(x))
+* an R list is similar to a Python dictionary: names(l) to get the tags, unlist(l) to get the values
 
 
 
