@@ -63,6 +63,16 @@ class(monitordata[,pollutant]) "numeric";
 * R variable types are called modes
 * for (i in seq(x))
 * an R list is similar to a Python dictionary: names(l) to get the tags, unlist(l) to get the values
-
-
+* peek into beginning of raw data, derive variable data types,  them when reading in data
+* classes <- c("character","character","numeric","numeric","numeric","numeric",
+                "numeric","numeric","numeric")
+powerData <- read.table("household_power_consumption.txt",sep=";",
+                                header=TRUE, na.strings="?", colClasses=classes, nrows=2075259)
+## Filter for specific dates
+rows <- grep("^1/2/2007|^2/2/2007", powerData$Date)
+specData <- powerData[rows,]
+* see complete.R
+* on vectorization: rather than grow a container, allocate memory upfront then set memory
+* system.time() to time code
+* it's a little better to use cat() instead of print()
 
