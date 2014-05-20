@@ -19,6 +19,7 @@ R Idioms
 
 * Tom Short's R Reference Card
 http://cran.r-project.org/doc/contrib/Short-refcard.pdf
+* library(help = "datasets")
 * avoid explicit calls to return()
 * a function consists of its arguments, body and environment 
 * function + environment = closure or function closure 
@@ -36,7 +37,7 @@ in the environment in which the function was defined (vs. dynamic scoping)
 z<-rep(NA,1000); 
 myData<-sample(c(y,z),100); (select 100 elements at random from combining y and z)
 myNA<-is.na(myData); (myNA is a logical vector)
-* 0/0; Inf-Inf
+* 0/0; Inf-Inf => NaN
 * index vectors come in four different flavors:
 logical vectors, vectors of positive integers, vectors of negative integers, 
 vectors of character strings
@@ -45,7 +46,7 @@ vectors of character strings
 * x[!is.na(x) & x>0]
 * x[1:10] (1:10 is an index vector of positive integers)
 * x[c(3,5,7)] (c(3,5,7) is an index vector of positive integers)
-* x[c(-3,-5,-7)] or x[-c(3,5,7)] (c(-3,-5,-7) is an index vector of positive integers returns 
+* x[c(-3,-5,-7)] or x[-c(3,5,7)] (c(-3,-5,-7) is an index vector of negative integers returns 
 all elements of x EXCEPT for the 3rd, 5th and 7th)
 * R uses one-based indexing 
 * named vectors: names(vect)<-c("foo","bar","norf")
@@ -60,10 +61,11 @@ only contain one class of data
 * colnames(myData)<-cnames to set the colnames attribute of our data frame
 * class(monitordata) "data.frame"; class(monitordata[pollutant]) "data.frame";
 class(monitordata[,pollutant]) "numeric";
+* before loading data calculate the memory requirements
 * R variable types are called modes
 * for (i in seq(x))
 * an R list is similar to a Python dictionary: names(l) to get the tags, unlist(l) to get the values
-* peek into beginning of raw data, derive variable data types,  them when reading in data
+* peek into beginning of raw data, derive variable data types, specify them when reading in data
 * classes <- c("character","character","numeric","numeric","numeric","numeric",
                 "numeric","numeric","numeric")
 powerData <- read.table("household_power_consumption.txt",sep=";",
@@ -72,7 +74,24 @@ powerData <- read.table("household_power_consumption.txt",sep=";",
 rows <- grep("^1/2/2007|^2/2/2007", powerData$Date)
 specData <- powerData[rows,]
 * see complete.R
-* on vectorization: rather than grow a container, allocate memory upfront then set memory
 * system.time() to time code
 * it's a little better to use cat() instead of print()
-
+* dimension labels: dimnames() for arrays; rownames() and colnames() for matrices and data frames; names() for atomic vectors and lists
+* read from API | 
+* sqldf
+* read from Web | con = url(); htmlCode = readLines(con); close(con); htmlCode
+* read fixed width format | read.fwf
+* dplyr & plyr; dplyr is the next iteration of plyr, focusing on only data frames; 
+plyr implements the split-apply-combine pattern of data analysis
+http://blog.rstudio.org/2014/01/17/introducing-dplyr/
+vignette("introduction", package = "dplyr")
+* graphical summaries: 1. base plot with annotation 
+R graphics follows a static, "painting", model. Graphic elements are drawn, 
+and remain visible until painted over.
+there are two phases to creating a base plot 
+- initializing a new plot 
+- annotating (adding to) an existing plot: lines, points, text, legend
+with(airquality, plot(Wind, Ozone, main = "Ozone and Wind in New York City", type = "n"))
+with(subset(airquality, Month == 5), points(Wind, Ozone, col = "blue"))
+with(subset(airquality, Month != 5), points(Wind, Ozone, col = "red"))
+legend("topright", pch = 1, col = c("blue", "red"), legend = c("May", "Other Months"))
